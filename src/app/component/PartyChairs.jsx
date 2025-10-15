@@ -35,7 +35,7 @@ const PartyChairs = () => {
                 style={{ backgroundColor: party.color }}
                 className="w-full h-1  absolute top-0 left-0"
               ></div>
-              <p className="text-xl font-bold group-hover:hidden group-hover:opacity-0 block opacity-100">
+              <p className="text-xl font-bold text-center group-hover:hidden group-hover:opacity-0 block opacity-100">
                 {party.arabicName}
               </p>
               <p className="w-full text-3xl text-center font-bold group-hover:block group-hover:opacity-100 hidden opacity-0 text-white">
