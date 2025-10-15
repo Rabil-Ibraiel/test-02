@@ -26,7 +26,7 @@ export async function getPartiesByRegion(regionCode) {
         Number(b.locations[0]?.numberOfVoting || 0) -
         Number(a.locations[0]?.numberOfVoting || 0)
     )
-    .slice(0, 7); // Step 4: Limit to top 7
+    .slice(0, 6); // Step 4: Limit to top 7
 
   return sorted;
 }
@@ -36,7 +36,7 @@ export async function getTopParties() {
     orderBy: {
       numberOfVoting: "desc", // 🔽 sort by total votes (Party table)
     },
-    take: 7, // 🔢 limit to top 7
+    take: 6, // 🔢 limit to top 7
     select: {
       id: true,
       englishName: true,
@@ -46,6 +46,12 @@ export async function getTopParties() {
       color: true,
     },
   });
+
+  return parties;
+}
+
+export async function getParties() {
+  const parties = await prisma.party.findMany();
 
   return parties;
 }

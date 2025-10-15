@@ -8,23 +8,40 @@ export default function PartyVotesWrapper({ selectedRegion }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     if (!selectedRegion) {
-      setLoading(true);
       getTopParties().then((data) => {
         setParties(data);
         setLoading(false);
       });
     } else {
-      setLoading(true);
-      getPartiesByRegion(selectedRegion.slice(3, 5)).then(setParties);
-      setLoading(false);
+      getPartiesByRegion(selectedRegion.slice(3, 5)).then((data) => {
+        setParties(data);
+        setLoading(false);
+      });
     }
   }, [selectedRegion]);
   console.log(parties);
   return (
     <div className="w-2/3 rounded overflow-hidden flex flex-col gap-3">
-      {loading && (
-        <div role="status">
+      <div className="w-full min-h-12 border transition-all duration-300 ease-in-out border-white overflow-hidden bg-[rgb(26,40,107)] text-[rgb(241,240,240)] flex items-center justify-between px-4 rounded font-bold">
+        <div className="flex items-center w-6/12 ">
+          <h3>اسم الحزب</h3>
+        </div>
+
+        <div className="w-3/12">
+          <h3>عدد الأصوات</h3>
+        </div>
+
+        <div className="w-2/12">
+          <h3>عدد المشاركات</h3>
+        </div>
+      </div>
+      {loading ? (
+        <div
+          role="status"
+          className="h-full w-full flex items-center justify-center scale-200"
+        >
           <svg
             aria-hidden="true"
             className="w-8 h-8 text-gray-200 animate-spin  fill-[rgb(53,94,157)]"
@@ -43,10 +60,9 @@ export default function PartyVotesWrapper({ selectedRegion }) {
           </svg>
           <span className="sr-only">Loading...</span>
         </div>
+      ) : (
+        parties.map((party) => <PartyVotes key={party.id} party={party} />)
       )}
-      {parties.map((party) => (
-        <PartyVotes key={party.id} party={party} />
-      ))}
     </div>
   );
 }

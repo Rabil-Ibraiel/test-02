@@ -25,3 +25,13 @@ body {
   color: black;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer components {
+  .hide-scrollbar {
+    scrollbar-width: 0px;
+    scrollbar-color: transparent;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,8 +1,6 @@
-import SvgIcon from "./component/ComplexShape";
 import PartiesRegionWrapper from "./component/PartiesRegionWrapper";
 import PartyCardWrapper from "./component/PartyCardWrapper";
 import PartyChairs from "./component/PartyChairs";
-import PartyVotesWrapper from "./component/PartyVotesWrapper";
 
 export default function Home() {
   return (

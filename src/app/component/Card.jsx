@@ -77,7 +77,9 @@ const PartyCard = ({ party }) => {
               />
             </div>
 
-            <h2 className="font-extrabold text-3xl">{party.arabicName}</h2>
+            <h2 className="font-extrabold text-white text-3xl">
+              {party.arabicName}
+            </h2>
           </div>
         </motion.div>
       )}
