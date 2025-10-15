@@ -28,10 +28,9 @@ const PartyChairs = () => {
               onClick={() => setClick(party.abbr)}
               onMouseEnter={() => setHovered(party.abbr)}
               onMouseLeave={() => setHovered(null)}
-              className="min-w-3/12 h-12 group transition-all duration-300 cursor-pointer flex items-center justify-center  relative"
+              className="min-w-3/12 h-12 group transition-all duration-300 cursor-pointer flex items-center justify-center  relative bg-[rgb(211,215,233)] even:bg-[rgb(238,241,255)]"
               style={{
-                background:
-                  hovered === party.abbr ? party.color : "rgb(211,215,233)",
+                background: hovered === party.abbr && party.color,
               }}
             >
               <div
