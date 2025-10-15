@@ -28,7 +28,10 @@ const PartyCard = ({ party }) => {
               },
             }}
             animate={{
-              width: [0, 700],
+              width: [
+                0,
+                475 + (925 - 475) * (Number(party.numberOfVoting) / 1000000000),
+              ], // 925 max --- min 475
               transition: {
                 type: "tween", // Use tween for predictable duration
                 duration: 0.75, // Set to 5 seconds (adjust this number)

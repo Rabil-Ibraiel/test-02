@@ -17,8 +17,11 @@ const PartyChairs = () => {
   const [hovered, setHovered] = React.useState(null);
   return (
     <div className="w-full h-12 overflow-x-scroll overflow-y-clip hide-scrollbar flex items-center mb-12 relative text-[rgb(26,40,107)]">
-      {!click ? (
-        <>
+      <>
+        <div
+          style={{ display: click ? "none" : "flex", width: "100%" }}
+          className="flex-1"
+        >
           {parties.map((party) => (
             <div
               key={party.abbr}
@@ -43,8 +46,7 @@ const PartyChairs = () => {
               </p>
             </div>
           ))}
-        </>
-      ) : (
+        </div>
         <AnimatePresence mode="wait">
           {click && (
             <motion.div
@@ -100,7 +102,7 @@ const PartyChairs = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      )}
+      </>
     </div>
   );
 };
