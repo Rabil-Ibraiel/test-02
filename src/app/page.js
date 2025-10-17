@@ -4,7 +4,7 @@ import PartyChairs from "./component/PartyChairs";
 
 export default function Home() {
   return (
-    <div className="w-[1080px] h-[520px] mx-auto  my-12 ">
+    <div className="w-[1080px] h-[520px] mx-auto  my-12">
       <PartyChairs />
 
       <PartiesRegionWrapper />

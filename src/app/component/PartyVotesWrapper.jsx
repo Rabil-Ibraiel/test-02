@@ -24,8 +24,8 @@ export default function PartyVotesWrapper({ selectedRegion }) {
   console.log(parties);
   return (
     <div className="w-2/3 rounded overflow-hidden flex flex-col gap-3">
-      <div className="w-full min-h-12 border transition-all duration-300 ease-in-out border-white overflow-hidden bg-[rgb(26,40,107)] text-[rgb(241,240,240)] flex items-center justify-between px-4 rounded font-bold">
-        <div className="flex items-center w-6/12 ">
+      <div className="w-full min-h-12 border transition-all duration-300 ease-in-out border-white overflow-hidden bg-[rgb(53,95,157)] text-[rgb(241,240,240)] flex items-center justify-between px-4 rounded font-bold">
+        <div className="flex items-center w-6/12 pr-2 ">
           <h3>اسم الحزب</h3>
         </div>
 

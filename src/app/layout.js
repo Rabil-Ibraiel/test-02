@@ -1,14 +1,52 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const shams = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Shams-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Shams-SemiBold.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Shams-Bold.otf",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+
+  variable: "--font-shams",
+  display: "swap",
+  fallback: ["Arial", "sans-serif"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const eloquia = localFont({
+  src: [
+    {
+      path: "../../public/fonts/EloquiaDisplay-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/EloquiaDisplay-SemiBold.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/EloquiaDisplay-Bold.otf",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+
+  variable: "--font-eloquia",
+  display: "swap",
+  fallback: ["Arial", "sans-serif"],
 });
 
 export const metadata = {
@@ -19,9 +57,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${shams.variable} ${eloquia.variable} antialiased`}>
         {children}
       </body>
     </html>

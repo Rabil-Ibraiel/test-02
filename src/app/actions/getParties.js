@@ -43,6 +43,7 @@ export async function getTopParties() {
       arabicName: true,
       abbr: true,
       numberOfVoting: true,
+      numberOfSubscribing: true,
       color: true,
     },
   });
