@@ -1,3 +1,4 @@
+/* Let Tailwind inject its styles */
 @import "tailwindcss";
 
 :root {

@@ -28,7 +28,7 @@ export default function SvgIcon({ selected, setSelected }) {
   };
 
   return (
-    <div className="flex flex-col w-full h-full overflow-hidden relative">
+    <div className="flex flex-col w-full md:h-full h-[300px] overflow-hidden relative">
       <div
         className={`bg-linear-to-t from-[rgb(40,80,140)] to-[rgb(65,105,165)] p-2 transition-all duration-700 ease-in-out relative z-2 ${
           selected ? "h-[90%] " : "h-full "

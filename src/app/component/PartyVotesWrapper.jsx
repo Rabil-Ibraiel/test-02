@@ -23,18 +23,18 @@ export default function PartyVotesWrapper({ selectedRegion }) {
   }, [selectedRegion]);
   console.log(parties);
   return (
-    <div className="w-2/3 rounded overflow-hidden flex flex-col gap-3">
-      <div className="w-full min-h-12 border transition-all duration-300 ease-in-out border-white overflow-hidden bg-[rgb(53,95,157)] text-[rgb(241,240,240)] flex items-center justify-between px-4 rounded font-bold">
-        <div className="flex items-center w-6/12 pr-2 ">
+    <div className="lg:w-2/3 md:w-8/12 rounded overflow-hidden flex flex-col gap-3">
+      <div className="w-full lg:min-h-12 md:min-h-10 border transition-all duration-300 ease-in-out border-white overflow-hidden bg-[rgb(53,95,157)] text-[rgb(241,240,240)] flex items-center justify-between lg:px-4 rounded font-bold">
+        <div className="flex items-center md:w-6/12 overflow-hidden pr-2 ">
           <h3>اسم الحزب</h3>
         </div>
 
-        <div className="w-3/12">
+        <div className="lg:w-3/12 w-[25%] flex items-center justify-center">
           <h3>عدد الأصوات</h3>
         </div>
 
-        <div className="w-2/12">
-          <h3>عدد المشاركات</h3>
+        <div className="lg:w-3/12 w-[20%] flex items-center justify-center pl-2">
+          <h3> نسبة المقاعد</h3>
         </div>
       </div>
       {loading ? (
