@@ -224,8 +224,7 @@ export default function SvgIcon({ selected, setSelected }) {
 
       <div className="w-full h-[10%] bottom-0 right-0 absolute bg-linear-to-t from-[rgb(168,181,200)] to-[rgb(215,219,232)] flex items-center justify-center gap-2 overflow-hidden transition-[hight] duration-700 ease-in-out z-1">
         <svg
-          width="16"
-          height="15"
+        className="md:size-4.5 size-3.5"
           viewBox="0 0 16 15"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +232,7 @@ export default function SvgIcon({ selected, setSelected }) {
           <path d="M0.5 0L8.55147 8.05147L15.5 15H0.5V0Z" fill="#FFD600" />
         </svg>
 
-        <h2 className="text-[rgb(48,91,154)] font-bold text-3xl">
+        <h2 className="text-[rgb(48,91,154)] font-bold md:text-2xl text-xl">
           {iraqRegions[selected]}
         </h2>
       </div>

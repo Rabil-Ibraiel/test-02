@@ -92,7 +92,7 @@ const PartyChairs = () => {
         {/* ⬇️ Marquee track (shown only when not in 'click' detail view) */}
         <div
           style={{ width: "100%" }}
-          className="flex-1 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+          className="flex-1 mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
         >
           <div
             ref={trackRef}

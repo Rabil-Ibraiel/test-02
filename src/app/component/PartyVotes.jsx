@@ -11,15 +11,15 @@ const PartyVotes = ({ party }) => {
       <div
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        className="w-full lg:h-12  md:h-10 border transition-all duration-300 ease-in-out border-white overflow-hidden cursor-pointer text-[rgb(26,40,107)] hover:text-white md:flex hidden items-center lg:px-4 md:px-2 rounded relative"
+        className="w-full lg:h-12  md:h-12 border transition-all duration-300 ease-in-out border-white overflow-hidden cursor-pointer text-[rgb(26,40,107)] hover:text-white md:flex hidden items-center lg:px-4 md:px-2 px-1 rounded relative"
         style={{ background: hover ? party.color : "rgb(241,240,240)" }}
       >
         <div
-          className="lg:w-1 md:w-[2px] h-full absolute top-0 right-0 z-10"
+          className="lg:w-1 md:w-[3px] h-full absolute top-0 right-0 z-10"
           style={{ backgroundColor: party.color }}
         />
-        <div className="flex items-center gap-2 lg:w-6/12 md:w-[55%] overflow-hidden pr-2 line-clamp-1">
-          <div className="lg:size-10 md:size-8 size-10 lg:p-[2px]">
+        <div className="flex items-center gap-2 lg:w-6/12 md:w-[55%] overflow-hidden lg:pr-2 line-clamp-1">
+          <div className="lg:size-10 md:size-8 size-10 lg:p-0.5">
             {hover ? (
               <Image
                 src={`/${party.abbr}-W.png`}
@@ -36,11 +36,11 @@ const PartyVotes = ({ party }) => {
               />
             )}
           </div>
-          <h2 className="lg:text-lg font-semibold">{party.arabicName}</h2>
+          <h2 className="lg:text-lg leading-5 font-semibold">{party.arabicName}</h2>
         </div>
 
         <div className="flex items-baseline lg:w-3/12 w-[25%] justify-center">
-          <h3 className="font-bold lg:text-lg">
+          <h3 className="font-bold lg:text-lg pl-2">
             <span className="digits font-eloquia">
               {String(
                 party?.locations
@@ -51,10 +51,10 @@ const PartyVotes = ({ party }) => {
           </h3>
         </div>
 
-        <div className="flex items-baseline lg:w-3/12 w-[20%] justify-center mr-auto">
+        <div className="flex items-baseline lg:w-3/12 w-[25%] justify-center ">
           <h3 className="font-bold lg:text-lg">
             <span className="digits font-eloquia">
-              <span className="font-normal">%</span>12
+              <span className="font-normal">%</span>4
             </span>
           </h3>
         </div>
@@ -62,15 +62,15 @@ const PartyVotes = ({ party }) => {
       <div
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        className="w-full md:hidden h-14 border transition-all duration-300 ease-in-out border-white overflow-hidden cursor-pointer text-[rgb(26,40,107)] hover:text-white flex gap-3 items-center px-2 rounded relative"
+        className="w-full md:hidden xs:min-h-16 max-xs:min-h-24 h-fit border transition-all duration-300 ease-in-out border-white overflow-hidden cursor-pointer text-[rgb(26,40,107)] hover:text-white flex gap-3 items-center pr-3 pl-1 rounded relative"
         style={{ background: hover ? party.color : "rgb(241,240,240)" }}
       >
         <div
-          className="lg:w-1 md:w-[2px] h-full absolute top-0 right-0 z-10"
+          className="w-[3px] h-full absolute top-0 right-0 z-10"
           style={{ backgroundColor: party.color }}
         />
         <div className="flex items-center overflow-hidden line-clamp-1">
-          <div className="min-size-12 size-12">
+          <div className="min-size-12 xs:size-12 size-20 flex justify-center items-center">
             {hover ? (
               <Image
                 src={`/${party.abbr}-W.png`}
@@ -90,15 +90,15 @@ const PartyVotes = ({ party }) => {
         </div>
 
         <div className="flex w-full mt-2 ">
-          <div className="flex w-full text-nowrap ">
-            <h2 className="sm:w-1/2 w-7/12 max-w-7/12 h-full flex items-center pb-2 font-semibold text-xl max-sm:text-red-600">
+          <div className="flex max-xs:flex-col w-full text-wrap">
+            <h2 className="xs:w-[42%] w-full h-full flex items-center xs:pb-2 max-xs:pb-1 font-semibold text-lg ">
               {party.arabicName}
             </h2>
-            <div className="flex justify-between items-center sm:pl-4 pl-1 sm:w-1/2 w-5/12 sm:gap-6 gap-4">
+            <div className="flex max-xs:flex-col xs:justify-between xs:items-center sm:pl-4 pl-1 w-[55%] sm:gap-6 xs:gap-4 text-nowrap">
               <div className="flex">
-                <h3 className="flex flex-col-reverse items-center">
+                <h3 className="flex xs:flex-col-reverse items-center md:pr-0 xs:pr-6">
                   <span className="text-sm">
-                    عدد الأصوات<span className="hidden">:</span>
+                    عدد الأصوات<span className="xs:hidden inline-flex">:</span>
                   </span>
 
                   <span className="digits font-eloquia text-xl font-bold mr-1">
@@ -111,10 +111,10 @@ const PartyVotes = ({ party }) => {
                 </h3>
               </div>
               <div className="flex">
-                <h3 className="flex flex-col-reverse items-center">
-                  <span className="text-sm">نسبة المقاعد</span>
-                  <span className="digits font-eloquia text-2xl font-bold mr-1">
-                    <span className="font-normal text-lg">%</span>12
+                <h3 className="flex xs:flex-col-reverse items-center">
+                  <span className="text-sm">نسبة المقاعد<span className="xs:hidden inline-flex">:</span></span>
+                  <span className="digits font-eloquia xs:text-2xl text-xl font-bold mr-1">
+                    <span className="font-normal text-lg">%</span>4
                   </span>
                 </h3>
               </div>

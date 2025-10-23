@@ -158,7 +158,7 @@ const PartyCardWrapper = async () => {
   console.log(partiesa);
 
   return (
-    <div className="mt-4 text-[rgb(26,40,107)] flex flex-col gap-4 overflow-hidden">
+    <div className="mt-3 text-[rgb(26,40,107)] flex flex-col gap-3 overflow-hidden">
       {partiesa?.map((party) => (
         <PartyCard key={party.id} party={party} />
       ))}

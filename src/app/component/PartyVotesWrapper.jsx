@@ -23,8 +23,8 @@ export default function PartyVotesWrapper({ selectedRegion }) {
   }, [selectedRegion]);
   console.log(parties);
   return (
-    <div className="lg:w-2/3 md:w-8/12 w-full rounded overflow-hidden flex flex-col gap-3">
-      <div className="w-full lg:min-h-12 md:min-h-10 border transition-all duration-300 ease-in-out border-white overflow-hidden bg-[rgb(53,95,157)] text-[rgb(241,240,240)] flex items-center justify-between lg:px-4 rounded font-bold">
+    <div className="lg:w-2/3 md:w-8/12 w-full rounded overflow-hidden flex flex-col lg:gap-3 gap-2">
+      <div className="w-full lg:min-h-12 md:min-h-10 border transition-all duration-300 ease-in-out border-white overflow-hidden bg-[rgb(53,95,157)] text-[rgb(241,240,240)] hidden md:flex items-center justify-between lg:px-4 rounded font-bold">
         <div className="flex items-center md:w-6/12 overflow-hidden pr-2 ">
           <h3>اسم الحزب</h3>
         </div>
@@ -33,18 +33,18 @@ export default function PartyVotesWrapper({ selectedRegion }) {
           <h3>عدد الأصوات</h3>
         </div>
 
-        <div className="lg:w-3/12 w-[20%] flex items-center justify-center pl-2">
+        <div className="lg:w-3/12 w-[25%] flex items-center justify-center ">
           <h3> نسبة المقاعد</h3>
         </div>
       </div>
       {loading ? (
         <div
           role="status"
-          className="h-full w-full flex items-center justify-center scale-200"
+          className="w-full min-h-24 h-full flex items-center justify-center"
         >
           <svg
             aria-hidden="true"
-            className="w-8 h-8 text-gray-200 animate-spin  fill-[rgb(53,94,157)]"
+            className="md:size-16 size-12 text-gray-200 animate-spin  fill-[rgb(53,94,157)]"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

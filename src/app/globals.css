@@ -7,6 +7,14 @@
   direction: rtl;
 }
 
+@theme {
+  --breakpoint-xs: 450px;   /* new */
+  --breakpoint-sm: 640px;   /* override if you want */
+  --breakpoint-md: 700px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
