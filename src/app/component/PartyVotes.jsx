@@ -60,32 +60,19 @@ const PartyVotes = ({ party }) => {
         </div>
       </div>
       <div
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
         className="w-full md:hidden xs:min-h-16 max-xs:min-h-24 h-fit border transition-all duration-300 ease-in-out border-white overflow-hidden cursor-pointer text-[rgb(26,40,107)] hover:text-white flex gap-3 items-center pr-3 pl-1 rounded relative"
-        style={{ background: hover ? party.color : "rgb(241,240,240)" }}
       >
         <div
           className="w-[3px] h-full absolute top-0 right-0 z-10"
-          style={{ backgroundColor: party.color }}
         />
         <div className="flex items-center overflow-hidden line-clamp-1">
           <div className="min-size-12 xs:size-12 size-20 flex justify-center items-center">
-            {hover ? (
-              <Image
-                src={`/${party.abbr}-W.png`}
-                width={"100"}
-                height={"100"}
-                alt=""
-              />
-            ) : (
-              <Image
+            <Image
                 src={`/${party.abbr}.png`}
                 width={"100"}
                 height={"100"}
                 alt=""
               />
-            )}
           </div>
         </div>
 
@@ -97,7 +84,7 @@ const PartyVotes = ({ party }) => {
             <div className="flex max-xs:flex-col xs:justify-between xs:items-center sm:pl-4 pl-1 w-[55%] sm:gap-6 xs:gap-4 text-nowrap">
               <div className="flex">
                 <h3 className="flex xs:flex-col-reverse items-center md:pr-0 xs:pr-6">
-                  <span className="text-sm">
+                  <span className="text-base">
                     عدد الأصوات<span className="xs:hidden inline-flex">:</span>
                   </span>
 
@@ -112,7 +99,7 @@ const PartyVotes = ({ party }) => {
               </div>
               <div className="flex">
                 <h3 className="flex xs:flex-col-reverse items-center">
-                  <span className="text-sm">نسبة المقاعد<span className="xs:hidden inline-flex">:</span></span>
+                  <span className="text-base">نسبة المقاعد<span className="xs:hidden inline-flex">:</span></span>
                   <span className="digits font-eloquia xs:text-2xl text-xl font-bold mr-1">
                     <span className="font-normal text-lg">%</span>4
                   </span>

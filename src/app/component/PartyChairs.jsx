@@ -86,7 +86,7 @@ const PartyChairs = () => {
       ref={wrapperRef}
       onMouseEnter={() => (pausedRef.current = true)}
       onMouseLeave={() => (pausedRef.current = false)}
-      className="w-full h-12 overflow-hidden flex items-center mb-12 relative text-[rgb(26,40,107)] "
+      className="w-full h-12 overflow-hidden flex items-center relative text-[rgb(26,40,107)] "
     >
       <>
         {/* ⬇️ Marquee track (shown only when not in 'click' detail view) */}
@@ -107,7 +107,7 @@ const PartyChairs = () => {
                   pausedRef.current = true;
                   setClick(party.abbr);
                 }}
-                className="h-12 group transition-all duration-300 cursor-pointer flex items-center justify-center relative bg-[rgb(211,215,233)] even:bg-[rgb(238,241,255)]"
+                className="h-12 group transition-all duration-300 cursor-pointer flex items-center justify-center relative bg-[#D3D7E9] even:bg-[#E9EBF4]"
                 // Use a responsive minWidth so long Arabic names have room without breaking the marquee.
                 // min(320px, 35%) -> at large sizes items will be at least 320px, on small screens they'll be at most 35%.
                 style={{
