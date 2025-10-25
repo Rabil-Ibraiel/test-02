@@ -86,7 +86,7 @@ const PartyChairs = () => {
       ref={wrapperRef}
       onMouseEnter={() => (pausedRef.current = true)}
       onMouseLeave={() => (pausedRef.current = false)}
-      className="w-full h-12 overflow-hidden flex items-center relative text-[rgb(26,40,107)] "
+      className="w-full lg:h-10 h-11 overflow-hidden flex items-center relative text-[rgb(26,40,107)] "
     >
       <>
         {/* ⬇️ Marquee track (shown only when not in 'click' detail view) */}
@@ -107,12 +107,11 @@ const PartyChairs = () => {
                   pausedRef.current = true;
                   setClick(party.abbr);
                 }}
-                className="h-12 group transition-all duration-300 cursor-pointer flex items-center justify-center relative bg-[#D3D7E9] even:bg-[#E9EBF4]"
+                className="h-12 group transition-all duration-300 cursor-pointer flex items-center justify-center relative bg-[#D3D7E9] even:bg-[#E9EBF4] min-w-[280px] max-w-[35vw] overflow-hidden"
                 // Use a responsive minWidth so long Arabic names have room without breaking the marquee.
                 // min(320px, 35%) -> at large sizes items will be at least 320px, on small screens they'll be at most 35%.
                 style={{
                   ["--party-color"]: party.color,
-                  minWidth: "min(320px,35%)",
                 }}
               >
                 {/* overlay uses the CSS variable; opacity toggled via CSS (no JS) */}
@@ -122,7 +121,7 @@ const PartyChairs = () => {
                 />
                 <div
                   style={{ backgroundColor: party.color }}
-                  className="w-full h-1 absolute top-0 left-0"
+                  className="w-full lg:h-2 h-1 absolute top-0 left-0"
                 />
                 <p className="text-xl font-bold text-center absolute inset-0 flex items-center justify-center transition-opacity duration-300 opacity-100 group-hover:opacity-0">
                   {party.arabicName}
@@ -148,47 +147,47 @@ const PartyChairs = () => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="w-full h-full overflow-hidden flex items-center absolute top-0 left-0 z-10 cursor-pointer"
+              className="w-full h-full overflow-hidden rounded flex items-center absolute top-0 left-0 z-10 cursor-pointer"
             >
               {/* Column 1 */}
-              <div className="w-[35%] h-full flex items-center justify-center bg-[rgb(255,194,41)]">
-                <h3 className="text-2xl font-black">
+              <div className="w-[35%] h-full flex items-center justify-center text-center bg-[rgb(255,194,41)]">
+                <h3 className="lg:text-2xl text-lg font-bold leading-5 pb-1">
                   {parties.filter((p) => p.abbr === click)[0]?.arabicName}
                 </h3>
               </div>
 
               {/* Column 2 */}
-              <div className="w-[20%] h-full flex items-center justify-between px-4 bg-linear-to-t from-[rgb(255,194,41)] to-[rgb(250,209,126)] text-2xl font-bold">
-                <h4 className="flex gap-2">
-                  <p className="font-eloquia">
+              <div className="lg:w-[20%] w-[22%] h-full flex items-center justify-between lg:px-4 md:px-3 sm:px-2 bg-linear-to-t from-[rgb(255,194,41)] to-[rgb(250,209,126)] lg:text-2xl text-lg font-bold">
+                <h4 className="flex items-baseline lg:gap-2 md:gap-1 gap-0.5">
+                  <p className="digits font-eloquia lg:text-2xl text-lg font-bold mr-1">
                     {parties.filter((p) => p.abbr === click)[0]?.thisYearChairs}
                   </p>
-                  <p className="pt-[3px]">مقعدا</p>
+                  <p className="font-bold">مقعدا</p>
                 </h4>
-                <p className="font-eloquia">2025</p>
+                <p className="digits font-eloquia lg:lg:text-2xl text-lg font-bold mr-1.5">2025</p>
               </div>
 
               {/* Divider */}
               <div className="divider w-2 h-full bg-linear-to-t from-[rgb(255,194,41)] to-[rgb(255,194,41)]" />
 
               {/* Column 3 */}
-              <div className="w-[20%] h-full flex items-center justify-between px-4 bg-linear-to-t from-[rgb(255,194,41)] to-[rgb(250,209,126)] text-2xl font-bold">
-                <h4 className="flex gap-2">
-                  <p className="font-eloquia">
+              <div className="lg:w-[20%] w-[22%] h-full flex items-center justify-between lg:px-4 md:px-3 sm:px-2 bg-linear-to-t from-[rgb(255,194,41)] to-[rgb(250,209,126)] lg:text-2xl text-lg">
+                <h4 className="flex items-baseline lg:gap-2 md:gap-1 gap-0.5">
+                  <p className="digits font-eloquia lg:text-2xl text-lg font-bold">
                     {parties.filter((p) => p.abbr === click)[0]?.lastYearChairs}
                   </p>
-                  <p className="pt-[3px]">مقعدا</p>
+                  <p className="font-bold">مقعدا</p>
                 </h4>
-                <p className="font-eloquia">2024</p>
+                <p className="digits font-eloquia lg:text-2xl text-lg font-bold mr-1.5">2021</p>
               </div>
 
               {/* Column 4 */}
-              <div className="w-[30%] h-full flex items-center justify-center bg-[rgb(64,104,165)] text-white text-2xl font-bold">
+              <div className="lg:w-[30%] w-[21%] h-full flex items-center justify-center bg-[rgb(64,104,165)] text-white lg:text-2xl text-lg ">
                 <h4 className="flex gap-2">
-                  <p className="font-black font-eloquia">
+                  <p className="font-bold font-eloquia">
                     {parties.filter((p) => p.abbr === click)[0]?.numberOfVoting}
                   </p>
-                  <p className="pt-[3px]">صوت</p>
+                  <p className="font-semibold">صوت</p>
                 </h4>
               </div>
             </motion.div>
