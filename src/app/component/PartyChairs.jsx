@@ -14,6 +14,7 @@ const PartyChairs = () => {
   const trackRef = useRef(null);
   const pausedRef = useRef(false);
 
+
   useEffect(() => {
     getParties().then((data) => setParties(data));
   }, []);
@@ -150,14 +151,14 @@ const PartyChairs = () => {
               className="w-full h-full overflow-hidden rounded flex items-center absolute top-0 left-0 z-10 cursor-pointer"
             >
               {/* Column 1 */}
-              <div className="w-[35%] h-full flex items-center justify-center text-center bg-[rgb(255,194,41)]">
-                <h3 className="lg:text-2xl text-lg font-bold leading-5 pb-1">
+              <div className="w-[35%] h-full flex items-center justify-center text-center" style={{backgroundColor: parties.filter((p) => p.abbr === click)[0]?.color}}>
+                <h3 className="lg:text-2xl text-white text-lg font-bold leading-5 pb-1">
                   {parties.filter((p) => p.abbr === click)[0]?.arabicName}
                 </h3>
               </div>
 
               {/* Column 2 */}
-              <div className="lg:w-[20%] w-[22%] h-full flex items-center justify-between lg:px-4 md:px-3 sm:px-2 bg-linear-to-t from-[rgb(255,194,41)] to-[rgb(250,209,126)] lg:text-2xl text-lg font-bold">
+              <div className="lg:w-[20%] w-[22%] h-full flex items-center justify-between lg:px-4 md:px-3 sm:px-2 lg:text-2xl text-lg font-bold text-white" style={{backgroundColor: parties.filter((p) => p.abbr === click)[0]?.color}} >
                 <h4 className="flex items-baseline lg:gap-2 md:gap-1 gap-0.5">
                   <p className="digits font-eloquia lg:text-2xl text-lg font-bold mr-1">
                     {parties.filter((p) => p.abbr === click)[0]?.thisYearChairs}
@@ -168,10 +169,10 @@ const PartyChairs = () => {
               </div>
 
               {/* Divider */}
-              <div className="divider w-2 h-full bg-linear-to-t from-[rgb(255,194,41)] to-[rgb(255,194,41)]" />
+              <div className="divider w-2 h-full bg-white" />
 
               {/* Column 3 */}
-              <div className="lg:w-[20%] w-[22%] h-full flex items-center justify-between lg:px-4 md:px-3 sm:px-2 bg-linear-to-t from-[rgb(255,194,41)] to-[rgb(250,209,126)] lg:text-2xl text-lg">
+              <div style={{backgroundColor: parties.filter((p) => p.abbr === click)[0]?.color}} className="lg:w-[20%] w-[22%] h-full flex items-center justify-between lg:px-4 md:px-3 sm:px-2 text-white lg:text-2xl text-lg" >
                 <h4 className="flex items-baseline lg:gap-2 md:gap-1 gap-0.5">
                   <p className="digits font-eloquia lg:text-2xl text-lg font-bold">
                     {parties.filter((p) => p.abbr === click)[0]?.lastYearChairs}

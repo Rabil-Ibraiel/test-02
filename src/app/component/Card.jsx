@@ -10,7 +10,7 @@ const getMinBarPx = () => 400;
 
 // md: cap to the CARD width; lg+: min(1050, CARD width)
 const getMaxBarPx = (vw, cardW) =>
-  vw >= BREAKPOINTS.lg ? Math.min(1050, cardW+60) : cardW+60;
+  vw >= BREAKPOINTS.lg ? Math.min(1125, cardW+60) : cardW+60;
 
 const PartyCard = ({ party }) => {
   const id = party?.abbr || "PDK";
@@ -77,7 +77,7 @@ const PartyCard = ({ party }) => {
       ref={cardRef}
       aria-expanded={isMdUp ? open : false}
       onClick={() => { if (isMdUp) setOpen((s) => !s); }}
-      className="group sm:h-16 h-full w-full rounded overflow-hidden bg-[rgb(238,241,255)] md:cursor-pointer cursor-default border border-white flex items-center justify-between relative pr-4 pl-10"
+      className="group sm:h-16 h-full w-full rounded overflow-hidden bg-[rgb(238,241,255)] md:cursor-pointer cursor-default border border-white flex items-center justify-between relative sm:pr-4 pr-3 sm:pl-10 pl-2"
     >
       <div className="w-1 h-full absolute top-0 right-0" style={{ backgroundColor: party.color }} />
 
@@ -99,8 +99,9 @@ const PartyCard = ({ party }) => {
                 transition: { type: "tween", duration: 0.75, ease: "easeInOut" },
               }}
             >
-              <motion.p
-                className="digits font-eloquia text-4xl font-bold absolute top-1/2 -translate-y-1/2 text-white"
+              <div className="flex flex-col text-white absolute top-1/2 -translate-y-1/2 left-3 justify-center items-center">
+                <motion.p
+                className="digits font-eloquia text-4xl font-bold  text-white"
                 style={{ left: 12 }}
                 animate={{
                   opacity: open ? [0, 1] : 0,
@@ -109,7 +110,10 @@ const PartyCard = ({ party }) => {
               >
                 <span className="text-2xl font-normal">%</span>
                 {percent}
+                
               </motion.p>
+              <span className="text-xs font-normal">نسبة التصويت</span>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -151,15 +155,15 @@ const PartyCard = ({ party }) => {
         </div>
 
         <div className="flex flex-col-reverse items-center w-3/12 justify-center">
-          <p>{party.thisYearChairs > 10 ? "مقعد" : "مقاعد"}</p>
-          <p className="digits font-eloquia text-3xl font-bold">
+          <p>مقعد</p>
+          <p className="digits font-eloquia text-2xl font-bold">
             {party.thisYearChairs > 9 ? party.thisYearChairs : `0${party.thisYearChairs}`}
           </p>
         </div>
 
         <div className="flex flex-col-reverse items-center w-3/12 justify-center">
           <p>صوت</p>
-          <p className="digits font-eloquia text-3xl font-bold">{party.numberOfVoting}</p>
+          <p className="digits font-eloquia text-2xl font-bold">{party.numberOfVoting}</p>
         </div>
       </motion.div>
 
@@ -179,14 +183,14 @@ const PartyCard = ({ party }) => {
         <div className="w-full flex flex-col items-start gap-1 my-1">
           <h2 className="w-full h-full flex items-center xs:pb-2 max-xs:pb-1 font-semibold text-lg">{party.arabicName}</h2>
 
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center text-nowrap">
             <p className="text-base">عدد المقاعد:</p>
             <p className="digits font-eloquia text-xl font-bold mr-1">
               {party.thisYearChairs > 9 ? party.thisYearChairs : `0${party.thisYearChairs}`}
             </p>
           </div>
 
-          <div className="flex items-center sm:w-3/12 justify-center">
+          <div className="flex items-center sm:w-3/12 justify-center text-nowrap">
             <p className="text-base">عدد الأصوات:</p>
             <p className="digits font-eloquia text-xl font-bold mr-1">{party.numberOfVoting}</p>
           </div>
