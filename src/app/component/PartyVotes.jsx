@@ -54,7 +54,7 @@ const PartyVotes = ({ party }) => {
         <div className="flex items-baseline lg:w-3/12 w-[25%] justify-center ">
           <h3 className="font-bold lg:text-lg">
             <span className="digits font-eloquia">
-              <span className="font-normal">%</span>4
+              {party.thisYearChairs > 9 ? party.thisYearChairs : `0${party.thisYearChairs}`}
             </span>
           </h3>
         </div>
@@ -100,9 +100,9 @@ const PartyVotes = ({ party }) => {
               </div>
               <div className="flex">
                 <h3 className="flex xs:flex-col-reverse items-center">
-                  <span className="text-base">نسبة المقاعد<span className="xs:hidden inline-flex">:</span></span>
+                  <span className="text-base">عدد المقاعد<span className="xs:hidden inline-flex">:</span></span>
                   <span className="digits font-eloquia xs:text-2xl text-xl font-bold mr-1">
-                    <span className="font-normal text-lg">%</span>4
+                    {party.thisYearChairs > 9 ? party.thisYearChairs : `0${party.thisYearChairs}`}
                   </span>
                 </h3>
               </div>
@@ -116,7 +116,7 @@ const PartyVotes = ({ party }) => {
 
 export default PartyVotes;
 
-// Same code for before all:
+// Same code for before all:ذ
 
 {
   /* <div className="w-full h-12 border transition-all duration-300 ease-in-out border-white overflow-hidden bg-[rgb(241,240,240)] hover:bg-yellow-400 cursor-pointer text-[rgb(26,40,107)] hover:text-white flex items-center justify-between px-4 rounded">

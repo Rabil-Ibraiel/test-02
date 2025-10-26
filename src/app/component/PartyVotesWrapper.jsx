@@ -34,7 +34,7 @@ export default function PartyVotesWrapper({ selectedRegion }) {
         </div>
 
         <div className="lg:w-3/12 w-[25%] flex items-center justify-center ">
-          <h3> نسبة المقاعد</h3>
+          <h3>عدد المقاعد</h3>
         </div>
       </div>
       {loading ? (

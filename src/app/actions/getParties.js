@@ -13,8 +13,7 @@ export async function getPartiesByRegion(regionCode) {
     include: {
       // Step 2: Only include the location for that region
       locations: {
-        where: { regionCode },
-        select: { numberOfVoting: true },
+        where: { regionCode } 
       },
     },
   });
@@ -45,6 +44,7 @@ export async function getTopParties() {
       numberOfVoting: true,
       numberOfSubscribing: true,
       color: true,
+      thisYearChairs: true,
     },
   });
 
