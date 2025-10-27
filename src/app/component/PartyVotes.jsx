@@ -5,7 +5,6 @@ import { useState } from "react";
 
 const PartyVotes = ({ party }) => {
   const [hover, setHover] = useState(false);
-  console.log(party);
   return (
     <>
       <div
@@ -23,16 +22,20 @@ const PartyVotes = ({ party }) => {
             {hover ? (
               <Image
                 src={`/${party.abbr}-W.png`}
-                width={"100"}
-                height={"100"}
+                width={100}
+                height={100}
                 alt=""
+                sizes="40px"
+                loading="lazy"
               />
             ) : (
               <Image
                 src={`/${party.abbr}.png`}
-                width={"100"}
-                height={"100"}
+                width={100}
+                height={100}
                 alt=""
+                sizes="40px"
+                loading="lazy"
               />
             )}
           </div>
@@ -69,11 +72,13 @@ const PartyVotes = ({ party }) => {
         <div className="flex items-center overflow-hidden mr-1">
           <div className="min-size-12 xs:size-12 size-16 flex justify-center items-center">
             <Image
-                src={`/${party.abbr}.png`}
-                width={"100"}
-                height={"100"}
-                alt=""
-              />
+              src={`/${party.abbr}.png`}
+              width={100}
+              height={100}
+              alt=""
+              sizes="56px"
+              loading="lazy"
+            />
           </div>
         </div>
 
@@ -124,8 +129,8 @@ export default PartyVotes;
         <div className="w-10 h-10">
           <Image
             src={`/${party.abbr}.png`}
-            width={"100"}
-            height={"100"}
+            width={100}
+            height={100}
             alt=""
           />
         </div>
@@ -147,3 +152,4 @@ export default PartyVotes;
       </div>
     </div> */
 }
+

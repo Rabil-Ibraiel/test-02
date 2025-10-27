@@ -1,6 +1,6 @@
 import PartyCard from "./Card";
 
-import prisma from "@/lib/prisma";
+import prisma from "../../lib/prisma";
 function randInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }

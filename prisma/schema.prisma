@@ -24,6 +24,9 @@ model Party {
   thisYearChairs      Int
   color               String
   locations           Location[]
+
+  // For fast global Top-K by votes with stable tie-breaks
+  @@index([numberOfVoting, id])
 }
 
 model Location {
@@ -33,4 +36,11 @@ model Location {
   numberOfSubscribing BigInt
   partyId             Int
   party               Party    @relation(fields: [partyId], references: [id], onDelete: Cascade)
+
+  // Speed up regional ranking by pushing ORDER BY to the DB
+  @@index([regionCode, numberOfVoting])
+  // Efficient lookup of party rows within a region
+  @@index([partyId, regionCode])
+  // If the domain guarantees one row per (partyId, regionCode), you can use:
+  // @@unique([partyId, regionCode])
 }

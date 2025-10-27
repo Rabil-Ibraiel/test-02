@@ -1,41 +1,76 @@
 // /app/actions/getParties.js
 "use server";
-import prisma from "@/lib/prisma";
+import { cache } from "react";
+import prisma from "../../lib/prisma";
 
-export async function getPartiesByRegion(regionCode) {
-  // Step 1: Fetch all parties that have at least one location for that region
+/**
+ * getPartiesByRegion(regionCode)
+ * - DB-level aggregation + sort + limit (1 roundtrip for ranking)
+ * - Fetch only the fields the UI renders
+ * - Preserve output shape (locations[0].numberOfVoting for the region)
+ */
+export const getPartiesByRegion = cache(async (regionCode) => {
+  // Aggregate votes per party within the region and rank in the DB
+  const top = await prisma.location.groupBy({
+    where: { regionCode },
+    by: ["partyId"],
+    _sum: { numberOfVoting: true },
+    orderBy: [
+      { _sum: { numberOfVoting: "desc" } }, // main sort
+      { partyId: "asc" },                    // stable tiebreaker
+    ],
+    take: 6,
+  });
+
+  if (top.length === 0) return [];
+
+  // Fetch only needed party fields
+  const ids = top.map((t) => t.partyId);
   const parties = await prisma.party.findMany({
-    where: {
-      locations: {
-        some: { regionCode },
-      },
-    },
-    include: {
-      // Step 2: Only include the location for that region
-      locations: {
-        where: { regionCode } 
-      },
+    where: { id: { in: ids } },
+    select: {
+      id: true,
+      englishName: true,
+      arabicName: true,
+      abbr: true,
+      numberOfVoting: true,
+      numberOfSubscribing: true,
+      color: true,
+      thisYearChairs: true,
+      lastYearChairs: true,
     },
   });
 
-  // Step 3: Sort them by that region’s numberOfVoting (descending)
-  const sorted = parties
-    .sort(
-      (a, b) =>
-        Number(b.locations[0]?.numberOfVoting || 0) -
-        Number(a.locations[0]?.numberOfVoting || 0)
-    )
-    .slice(0, 6); // Step 4: Limit to top 7
+  const byId = new Map(parties.map((p) => [p.id, p]));
 
-  return sorted;
-}
+  // Return in ranked order with a single regional location entry
+  return top
+    .map((t) => {
+      const p = byId.get(t.partyId);
+      if (!p) return null;
+      return {
+        ...p,
+        locations: [
+          {
+            regionCode,
+            // Keep BigInt where applicable to preserve semantics used by UI
+            numberOfVoting: t._sum.numberOfVoting ?? 0n,
+          },
+        ],
+      };
+    })
+    .filter(Boolean);
+});
 
-export async function getTopParties() {
-  const parties = await prisma.party.findMany({
-    orderBy: {
-      numberOfVoting: "desc", // 🔽 sort by total votes (Party table)
-    },
-    take: 6, // 🔢 limit to top 7
+/**
+ * getTopParties()
+ * - DB-ordered top K
+ * - Minimal select
+ */
+export const getTopParties = cache(async () => {
+  return prisma.party.findMany({
+    orderBy: { numberOfVoting: "desc" },
+    take: 6,
     select: {
       id: true,
       englishName: true,
@@ -47,12 +82,26 @@ export async function getTopParties() {
       thisYearChairs: true,
     },
   });
+});
 
-  return parties;
-}
-
-export async function getParties() {
-  const parties = await prisma.party.findMany();
-
-  return parties;
-}
+/**
+ * getParties()
+ * - Minimal select used across marquee/cards
+ * - Stable order by id asc
+ */
+export const getParties = cache(async () => {
+  return prisma.party.findMany({
+    select: {
+      id: true,
+      englishName: true,
+      arabicName: true,
+      abbr: true,
+      numberOfVoting: true,
+      numberOfSubscribing: true,
+      color: true,
+      thisYearChairs: true,
+      lastYearChairs: true,
+    },
+    orderBy: { id: "asc" },
+  });
+});

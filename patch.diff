@@ -1,0 +1,211 @@
+*** Begin Patch
+*** Update File: src/app/actions/getParties.js
+@@
+-// /app/actions/getParties.js
+-"use server";
+-import { cache } from "react";
+-import prisma from "@/lib/prisma";
+-
+-/**
+- * FAST: top 6 parties within a region by that region's numberOfVoting.
+- * 2 queries, tiny payload, stable order.
+- */
+-export const getPartiesByRegion = cache(async (regionCode) => {
+-  // 1) Aggregate votes per party within the region
+-  const top = await prisma.location.groupBy({
+-    where: { regionCode },
+-    by: ["partyId"],
+-    _sum: { numberOfVoting: true },
+-    orderBy: { _sum: { numberOfVoting: "desc" } },
+-    take: 6,
+-  });
+-
+-  if (top.length === 0) return [];
+-
+-  // 2) Fetch only the needed party fields
+-  const ids = top.map(t => t.partyId);
+-  const parties = await prisma.party.findMany({
+-    where: { id: { in: ids } },
+-    select: {
+-      id: true,
+-      englishName: true,
+-      arabicName: true,
+-      abbr: true,
+-      color: true,
+-      thisYearChairs: true,
+-      numberOfVoting: true, // global total if you show it
+-    },
+-  });
+-
+-  const byId = new Map(parties.map(p => [p.id, p]));
+-
+-  // 3) Return in the same ranking order, with region??Ts sum attached
+-  return top.map(t => {
+-    const p = byId.get(t.partyId);
+-    if (!p) return null;
+-    return {
+-      ...p,
+-      locations: [{
+-        regionCode,
+-        numberOfVoting: Number(t._sum.numberOfVoting ?? 0),
+-      }],
+-    };
+-  }).filter(Boolean);
+-});``
+-
+-/**
+- * FAST: Top parties by global total (already good, just tiny fixes).
+- */
+-export const getTopParties = cache(async () => {
+-  const parties = await prisma.party.findMany({
+-    orderBy: { numberOfVoting: "desc" },
+-    take: 6, // comment said 7; your code used 6. Keeping 6 for consistency.
+-    select: {
+-      id: true,
+-      englishName: true,
+-      arabicName: true,
+-      abbr: true,
+-      numberOfVoting: true,
+-      numberOfSubscribing: true,
+-      color: true,
+-      thisYearChairs: true,
+-    },
+-  });
+-  return parties;
+-});
+-
+-/**
+- * If you truly need ALL parties, still select only what you render.
+- */
+-export const getParties = cache(async () => {
+-  const parties = await prisma.party.findMany({
+-    select: {
+-      id: true,
+-      englishName: true,
+-      arabicName: true,
+-      abbr: true,
+-      color: true,
+-      thisYearChairs: true,
+-      numberOfVoting: true,
+-    },
+-    orderBy: { id: "asc" },
+-  });
+-  return parties;
+-});
++// /app/actions/getParties.js
++"use server";
++import { cache } from "react";
++import prisma from "@/lib/prisma";
++
++/**
++ * getPartiesByRegion(regionCode)
++ *
++ * Returns the top 6 parties for a given region, ranked by that region's
++ * aggregated numberOfVoting. We push the aggregation, sorting and limiting
++ * down to Postgres using `groupBy`, then fetch only the fields the UI needs.
++ *
++ * Output shape and order exactly match prior behavior:
++ * - Each party object includes a single-element `locations` array containing
++ *   the requested region's code and its vote total, so
++ *   `party.locations[0].numberOfVoting` continues to work.
++ */
++export const getPartiesByRegion = cache(async (regionCode) => {
++  // 1) Aggregate region votes per party and rank in the DB
++  const top = await prisma.location.groupBy({
++    where: { regionCode },
++    by: ["partyId"],
++    _sum: { numberOfVoting: true },
++    orderBy: [
++      // main sort: regional votes desc
++      { _sum: { numberOfVoting: "desc" } },
++      // tiebreaker for stable order
++      { partyId: "asc" },
++    ],
++    take: 6,
++  });
++
++  if (top.length === 0) return [];
++
++  // 2) Fetch only fields rendered by the UI
++  const ids = top.map((t) => t.partyId);
++  const parties = await prisma.party.findMany({
++    where: { id: { in: ids } },
++    select: {
++      id: true,
++      englishName: true,
++      arabicName: true,
++      abbr: true,
++      numberOfVoting: true, // global total remains available
++      numberOfSubscribing: true,
++      color: true,
++      thisYearChairs: true,
++      lastYearChairs: true,
++    },
++  });
++
++  const byId = new Map(parties.map((p) => [p.id, p]));
++
++  // 3) Return in the same (ranked) order with a single regional location
++  return top
++    .map((t) => {
++      const p = byId.get(t.partyId);
++      if (!p) return null;
++      return {
++        ...p,
++        locations: [
++          {
++            regionCode,
++            // Keep BigInt when present to preserve semantics used by UI
++            numberOfVoting: t._sum.numberOfVoting ?? 0n,
++          },
++        ],
++      };
++    })
++    .filter(Boolean);
++});
++
++/**
++ * getTopParties()
++ *
++ * Global top 6 parties by numberOfVoting. Narrow select avoids over-fetching.
++ */
++export const getTopParties = cache(async () => {
++  return prisma.party.findMany({
++    orderBy: { numberOfVoting: "desc" },
++    take: 6,
++    select: {
++      id: true,
++      englishName: true,
++      arabicName: true,
++      abbr: true,
++      numberOfVoting: true,
++      numberOfSubscribing: true,
++      color: true,
++      thisYearChairs: true,
++    },
++  });
++});
++
++/**
++ * getParties()
++ *
++ * All parties for marquee/cards. Select only rendered fields and use a
++ * stable order to keep UI deterministic.
++ */
++export const getParties = cache(async () => {
++  return prisma.party.findMany({
++    select: {
++      id: true,
++      englishName: true,
++      arabicName: true,
++      abbr: true,
++      numberOfVoting: true,
++      numberOfSubscribing: true,
++      color: true,
++      thisYearChairs: true,
++      lastYearChairs: true,
++    },
++    orderBy: { id: "asc" },
++  });
++});
+*** End Patch
