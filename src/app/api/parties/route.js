@@ -1,4 +1,4 @@
-import prisma from "../../lib/prisma";
+import prisma from "../../../lib/prisma";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -46,3 +46,4 @@ export default async function handler(req, res) {
 
   res.status(405).end();
 }
+
